@@ -282,10 +282,9 @@ public class Trajectoire
                 hauteurImage
         );
 
-        int nbPasParPhase = n/3;
-        for (int i=0; i<nbPasParPhase; ++i)
+        for (int i=0; i<n; ++i)
         {
-            double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
+            double t = (2*3.1416*i)/(n-1); // 0.0 <= t <= 1.0 (croissant)
 
             camera.setPosition(GetPosition(abc, t));
             System.out.println(camera);
@@ -307,10 +306,9 @@ public class Trajectoire
                 hauteurImage
         );
 
-        int nbPasParPhase = n/3;
-        for (int i=0; i<nbPasParPhase; ++i)
+        for (int i=0; i<n; ++i)
         {
-            double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
+            double t = (2*3.1416*i)/(n-1); // 0.0 <= t <= 1.0 (croissant)
 
             //verslehaut
             // Formule des instruction
@@ -344,10 +342,9 @@ public class Trajectoire
                 hauteurImage
         );
 
-        int nbPasParPhase = n/3;
-        for (int i=0; i<nbPasParPhase; ++i)
+        for (int i=0; i<n; ++i)
         {
-            double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
+            double t = (2*3.1416*i)/(n-1); // 0.0 <= t <= 1.0 (croissant)
 
             //double norm1 = Math.sqrt((abc[0]*abc[0]-abc[1]*abc[1]+abc[2]*abc[2])*(Math.cos(t)*Math.cos(t))+(abc[1]*abc[1]));
 
