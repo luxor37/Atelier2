@@ -173,6 +173,13 @@ public class Trajectoire
         System.out.println("]\n}");
     }
 
+    private static Vecteur3d GetPosition(double[] abc, int t){
+        double x = abc[0]*(1+Math.cos(t))+1;
+        double y = abc[1]*(Math.sin(t));
+        double z = abc[2]*(1+Math.cos(t));
+
+        return new Vecteur3d(x, y, z);
+    }
 
     /**
      * Réalise une trajectoire toute simple, en 4 phases
@@ -273,13 +280,9 @@ public class Trajectoire
         {
             double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
 
-            double x = abc[0]*(1+Math.cos(t))+1;
-            double y = abc[1]*(Math.sin(t));
-            double z = abc[2]*(1+Math.cos(t));
 
-            Vecteur3d position = new Vecteur3d(x, y, z);
 
-            camera.setPosition(position);
+            camera.setPosition(GetPosition(abc, i));
             System.out.println(camera);
         }
 
@@ -306,11 +309,6 @@ public class Trajectoire
         {
             double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
 
-            //position
-            double x = abc[0]*(1+Math.cos(t))+1;
-            double y = abc[1]*(Math.sin(t));
-            double z = abc[2]*(1+Math.cos(t));
-
             //orientation
             double xDerived = -abc[0]*Math.sin(t);
             double yDerived = abc[1]*Math.cos(t);
@@ -324,11 +322,10 @@ public class Trajectoire
             double yVersLeHaut = abc[2]*Math.sin(t);
             double zVersLeHaut = abc[1]*Math.cos(t);
 
-            Vecteur3d position = new Vecteur3d(x, y, z);
             Vecteur3d newOrientation = new Vecteur3d(xDerived,yDerived,zDerived);
             Vecteur3d newVersLeHaut = new Vecteur3d(xVersLeHaut, yVersLeHaut, zVersLeHaut);
 
-            camera.setPosition(position);
+            camera.setPosition(GetPosition(abc, i));
             camera.setOrientationRegard(newOrientation);
             camera.setOrientationVersLeHaut(newVersLeHaut);
             System.out.println(camera);
@@ -357,11 +354,6 @@ public class Trajectoire
         {
             double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
 
-            //position
-            double x = abc[0]*(1+Math.cos(t))+1;
-            double y = abc[1]*(Math.sin(t));
-            double z = abc[2]*(1+Math.cos(t));
-
             //orientation
             double xDerived = -abc[0]*Math.sin(t);
             double yDerived = abc[1]*Math.cos(t);
@@ -373,11 +365,10 @@ public class Trajectoire
             double zDerived2 = -abc[2]*Math.cos(t);
             var norm = new Vecteur3d(xDerived2, yDerived2, zDerived2).norme();
 
-            Vecteur3d position = new Vecteur3d(x, y, z);
             Vecteur3d newOrientation = new Vecteur3d(xDerived,yDerived,zDerived);
             Vecteur3d newVersLeHaut = new Vecteur3d(xDerived2/norm, yDerived2/norm, zDerived2/norm);
 
-            camera.setPosition(position);
+            camera.setPosition(GetPosition(abc, i));
             camera.setOrientationRegard(newOrientation);
             camera.setOrientationVersLeHaut(newVersLeHaut);
             System.out.println(camera);
@@ -406,11 +397,6 @@ public class Trajectoire
         {
             double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
 
-            //position
-            double x = abc[0]*(1+Math.cos(t))+1;
-            double y = abc[1]*(Math.sin(t));
-            double z = abc[2]*(1+Math.cos(t));
-
             //orientation
             double xDerived = -abc[0]*Math.sin(t);
             double yDerived = abc[1]*Math.cos(t);
@@ -432,11 +418,10 @@ public class Trajectoire
             double yVersLeHaut = abc[2]*Math.cos(t);
             double zVersLeHaut = -abc[1]*Math.sin(t);
 
-            Vecteur3d position = new Vecteur3d(x, y, z);
             Vecteur3d newOrientation = new Vecteur3d(xDerived,yDerived,zDerived);
             Vecteur3d newVersLeHaut = new Vecteur3d(xVersLeHaut, yVersLeHaut, zVersLeHaut);
 
-            camera.setPosition(position);
+            camera.setPosition(GetPosition(abc, i));
             camera.setOrientationRegard(newOrientation);
             camera.setOrientationVersLeHaut(newVersLeHaut);
             System.out.println(camera);
