@@ -1,0 +1,295 @@
+{
+	"RayTracer" : {
+		"nbMaxReflexions" : 10,
+		"multithread" : true
+	},
+
+	"Animation" : {
+		"fichierCameras" : "cameras.json",
+		"prefixeFichiersImage" : "img_",
+		"suffixeFichiersImage" : ".jpg",
+		"fichierSortie" : "film.mp4",
+		"convertisseur" : "ffmpeg.exe",
+		"fps" : 10
+	},
+
+	"Scene" : {
+		"Fond" : {
+			"type"     : "Cubique",
+			"devant"   : "textures/ciel.jpg",
+			"derriere" : "textures/ciel.jpg",
+			"gauche"   : "textures/ciel.jpg",
+			"droite"   : "textures/ciel.jpg",
+			"haut"     : "textures/bleu-ciel.png",
+			"bas"      : "textures/gris-nuage.png"
+		},
+		"Visibles" : [
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-4,-4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "rouge",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-3,-4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "vert",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-2,-4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "bleu",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-1,-4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "jaune",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(0,-4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "cyan",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(1,-4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "magenta",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(2,-4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "orange",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(3,-4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "brun",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(4,-4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "brun",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(4,-3,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "rose",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(4,-2,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "beige",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(4,-1,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "gris",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(4,0,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "violet",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(4,1,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "turquoise",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(4,2,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "argent",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(4,3,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "bleu",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(4,4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "bleu",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(3,4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "cyan",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(2,4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "rouge",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(1,4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "magenta",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(0,4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "blanc",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-1,4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "jaune",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-2,4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "mauve",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-3,4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "brun",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-4,4,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "vert",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-4,3,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "noir",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-4,2,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "gris",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-4,1,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "violet",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-4,0,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "jaune",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-4,-1,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "turquoise",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-4,-2,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "turquoise",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(-4,-3,0)",
+				"rayon"       : 0.3,
+				"couleur"     : "turquoise",
+				"reflexivite" : 0.3
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(0,-2.0,0)",
+				"rayon"       : 1.0,
+				"couleur"     : "jaune",
+				"reflexivite" : 1.0
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(0,2.0,0)",
+				"rayon"       : 1.0,
+				"couleur"     : "jaune",
+				"reflexivite" : 1.0
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(10,0,0)",
+				"rayon"       : 1.0,
+				"couleur"     : "rouge",
+				"reflexivite" : 1.0
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(35,-2.5,6)",
+				"rayon"       : 1.0,
+				"couleur"     : "rouge",
+				"reflexivite" : 1.0
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(35,0,6)",
+				"rayon"       : 1.0,
+				"couleur"     : "rouge",
+				"reflexivite" : 1.0
+			},
+			{
+				"type"        : "Sphere",	
+				"centre"      : "(35,2.5,6)",
+				"rayon"       : 1.0,
+				"couleur"     : "rouge",
+				"reflexivite" : 1.0
+			}
+		]
+	}
+}
