@@ -182,6 +182,7 @@ public class Trajectoire
     }
 
     private static Vecteur3d GetOrientation(double[] abc, double t){
+        // (= vecteur tangent)
         double x = -abc[0]*Math.sin(t);
         double y = abc[1]*Math.cos(t);
         double z = -abc[2]*Math.sin(t);
@@ -348,13 +349,15 @@ public class Trajectoire
         {
             double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
 
-            //verslehaut
-            double xDerived2 = -abc[0]*Math.cos(t);
-            double yDerived2 = -abc[1]*Math.sin(t);
-            double zDerived2 = -abc[2]*Math.cos(t);
-            var norm = new Vecteur3d(xDerived2, yDerived2, zDerived2).norme();
+            //double norm1 = Math.sqrt((abc[0]*abc[0]-abc[1]*abc[1]+abc[2]*abc[2])*(Math.cos(t)*Math.cos(t))+(abc[1]*abc[1]));
 
-            Vecteur3d newVersLeHaut = new Vecteur3d(xDerived2/norm, yDerived2/norm, zDerived2/norm);
+            //verslehaut
+            double xTangentDerived = (-abc[0]*Math.cos(t));
+            double zTangentDerived = (-abc[2]*Math.cos(t));
+            double yTangentDerived = (-abc[1]*Math.sin(t));
+            var norm = new Vecteur3d(xTangentDerived, yTangentDerived, zTangentDerived).norme();
+
+            Vecteur3d newVersLeHaut = new Vecteur3d(xTangentDerived/norm, yTangentDerived/norm, zTangentDerived/norm);
 
             camera.setPosition(GetPosition(abc, t));
             camera.setOrientationRegard(GetOrientation(abc, t));
@@ -419,7 +422,7 @@ public class Trajectoire
 
             double[] abc = {15.0, 5.0, 3.0};
 
-            //(160, 400, 340) -> low settings | (???fps, 1600, 900) -> high settings
+            //(160, 400, 340) -> low settings | (1440, 1600, 900) -> high settings
             //question0(900, 1600, 900);
             //question1(900, 1600, 900, abc);
             //question2(900, 1600, 900, abc);
