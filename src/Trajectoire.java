@@ -356,20 +356,17 @@ public class Trajectoire
             double t = (2*3.1416*i)/(n-1); // 0.0 <= t <= 1.0 (croissant)
 
             //verslehaut
-//            double xTangentDerived = (-abc[0]*Math.cos(t));
-//            double yTangentDerived = (-abc[1]*Math.sin(t));
-//            double zTangentDerived = (-abc[2]*Math.cos(t));
-//            double normOfDerived = new Vecteur3d(xTangentDerived, yTangentDerived, zTangentDerived).norme();
 
-            double denominator = Math.pow(
-                    ((Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2))
-                            * (Math.pow(Math.cos(t), 2))
-                            + Math.pow(b, 2))
-                    , 1.5);
+            //TI (d/dt)(unitV([-a*sin(t) b*cos(t) -c*sin(t)]))
 
-            double x = (a * Math.pow(b, 2) * Math.sin(t)) / denominator;
-            double y = (-(Math.pow(a, 2) * Math.pow(c, 2)) * b * Math.cos(t)) / denominator;
-            double z = (Math.pow(b, 2) * c * Math.sin(t)) / denominator;
+            double denominator = ((Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2))
+                    * (Math.pow(Math.cos(t), 2) - Math.pow(a, 2) - Math.pow(c, 2))) *
+                    Math.sqrt(-(Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2)) + Math.pow(Math.cos(t), 2) +
+                            Math.pow(a, 2) + Math.pow(c, 2));
+
+            double x = (a * Math.pow(b, 2) * Math.cos(t)) / denominator;
+            double y = ((Math.pow(a, 2) + Math.pow(c, 2)) * b * Math.sin(t)) / denominator;
+            double z = (Math.pow(b, 2) * c * Math.cos(t)) / denominator;
 
             Vecteur3d newVersLeHaut = new Vecteur3d(x, y, z);
 
