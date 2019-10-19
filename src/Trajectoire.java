@@ -355,7 +355,7 @@ public class Trajectoire
             double xTangentDerived = (-abc[0]*Math.cos(t));
             double zTangentDerived = (-abc[2]*Math.cos(t));
             double yTangentDerived = (-abc[1]*Math.sin(t));
-            var norm = new Vecteur3d(xTangentDerived, yTangentDerived, zTangentDerived).norme();
+            double norm = new Vecteur3d(xTangentDerived, yTangentDerived, zTangentDerived).norme();
 
             Vecteur3d newVersLeHaut = new Vecteur3d(xTangentDerived/norm, yTangentDerived/norm, zTangentDerived/norm);
 
@@ -390,7 +390,7 @@ public class Trajectoire
             double xDerived2 = -abc[0]*Math.cos(t);
             double yDerived2 = -abc[1]*Math.sin(t);
             double zDerived2 = -abc[2]*Math.cos(t);
-            var norm = new Vecteur3d(xDerived2, yDerived2, zDerived2).norme();
+            double norm = new Vecteur3d(xDerived2, yDerived2, zDerived2).norme();
             Vecteur3d normalPrincipal = new Vecteur3d(xDerived2/norm, yDerived2/norm, zDerived2/norm);
 
             //verslehaut
