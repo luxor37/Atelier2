@@ -94,6 +94,15 @@ public class Trajectoire
             return Math.sqrt(this.normeCarree());
         }
 
+        /**
+         * Retoune le vecteur unitaire possédant la même orientation que this.
+         *
+         * @return  le normalisé de this
+         */
+        public Vecteur3d normalise() {
+            return this.multiplie(1.0 / this.norme());
+        }
+
         public String toString() {
             return "(" + x + ", " + y + ", " + z + ")";
         }
@@ -173,19 +182,19 @@ public class Trajectoire
         System.out.println("]\n}");
     }
 
-    private static Vecteur3d GetPosition(double[] abc, double t){
-        double x = abc[0]*(1+Math.cos(t))+1;
-        double y = abc[1]*(Math.sin(t));
-        double z = abc[2]*(1+Math.cos(t));
+    private static Vecteur3d GetPosition(double a, double b, double c, double t){
+        double x = a*(1+Math.cos(t))+1;
+        double y = b*(Math.sin(t));
+        double z = c*(1+Math.cos(t));
 
         return new Vecteur3d(x, y, z);
     }
 
-    private static Vecteur3d GetOrientation(double[] abc, double t){
+    private static Vecteur3d GetOrientation(double a, double b, double c, double t){
         // (= vecteur tangent)
-        double x = -abc[0]*Math.sin(t);
-        double y = abc[1]*Math.cos(t);
-        double z = -abc[2]*Math.sin(t);
+        double x = -a*Math.sin(t);
+        double y = b*Math.cos(t);
+        double z = -c*Math.sin(t);
 
         return new Vecteur3d(x, y, z);
     }
@@ -269,7 +278,7 @@ public class Trajectoire
         clotureJSON();
     }
 
-    private static void question1(int n, int largeurImage, int hauteurImage, double[] abc)
+    private static void question1(int n, int largeurImage, int hauteurImage, double a, double b, double c)
     {
         initJSON();
 
@@ -286,14 +295,14 @@ public class Trajectoire
         {
             double t = (2*3.1416*i)/(n-1); // 0.0 <= t <= 1.0 (croissant)
 
-            camera.setPosition(GetPosition(abc, t));
+            camera.setPosition(GetPosition(a, b, c, t));
             System.out.println(camera);
         }
 
         clotureJSON();
     }
 
-    private static void question2(int n, int largeurImage, int hauteurImage, double[] abc)
+    private static void question2(int n, int largeurImage, int hauteurImage, double a, double b, double c)
     {
         initJSON();
 
@@ -315,13 +324,13 @@ public class Trajectoire
             // T.I. -> solve(crossP([-a*sin(t) b*cos(t) -c*sin(t)], []) = [0 z -y], {y, z})
             // => (x, y, z)=[0 c*sin(t) b*cos(t)]
             double xVersLeHaut = 0;
-            double yVersLeHaut = abc[2]*Math.sin(t);
-            double zVersLeHaut = abc[1]*Math.cos(t);
+            double yVersLeHaut = c*Math.sin(t);
+            double zVersLeHaut = b*Math.cos(t);
 
             Vecteur3d newVersLeHaut = new Vecteur3d(xVersLeHaut, yVersLeHaut, zVersLeHaut);
 
-            camera.setPosition(GetPosition(abc, t));
-            camera.setOrientationRegard(GetOrientation(abc, t));
+            camera.setPosition(GetPosition(a, b, c, t));
+            camera.setOrientationRegard(GetOrientation(a, b, c, t));
             camera.setOrientationVersLeHaut(newVersLeHaut);
             System.out.println(camera);
         }
@@ -329,7 +338,7 @@ public class Trajectoire
         clotureJSON();
     }
 
-    private static void question3(int n, int largeurImage, int hauteurImage, double[] abc)
+    private static void question3(int n, int largeurImage, int hauteurImage, double a, double b, double c)
     {
         initJSON();
 
@@ -346,18 +355,26 @@ public class Trajectoire
         {
             double t = (2*3.1416*i)/(n-1); // 0.0 <= t <= 1.0 (croissant)
 
-            //double norm1 = Math.sqrt((abc[0]*abc[0]-abc[1]*abc[1]+abc[2]*abc[2])*(Math.cos(t)*Math.cos(t))+(abc[1]*abc[1]));
-
             //verslehaut
-            double xTangentDerived = (-abc[0]*Math.cos(t));
-            double yTangentDerived = (-abc[1]*Math.sin(t));
-            double zTangentDerived = (-abc[2]*Math.cos(t));
-            double norm = new Vecteur3d(xTangentDerived, yTangentDerived, zTangentDerived).norme();
+//            double xTangentDerived = (-abc[0]*Math.cos(t));
+//            double yTangentDerived = (-abc[1]*Math.sin(t));
+//            double zTangentDerived = (-abc[2]*Math.cos(t));
+//            double normOfDerived = new Vecteur3d(xTangentDerived, yTangentDerived, zTangentDerived).norme();
 
-            Vecteur3d newVersLeHaut = new Vecteur3d(xTangentDerived/norm, yTangentDerived/norm, zTangentDerived/norm);
+            double denominator = Math.pow(
+                    ((Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2))
+                            * (Math.pow(Math.cos(t), 2))
+                            + Math.pow(b, 2))
+                    , 1.5);
 
-            camera.setPosition(GetPosition(abc, t));
-            camera.setOrientationRegard(GetOrientation(abc, t));
+            double x = (a * Math.pow(b, 2) * Math.sin(t)) / denominator;
+            double y = (-(Math.pow(a, 2) * Math.pow(c, 2)) * b * Math.cos(t)) / denominator;
+            double z = (Math.pow(b, 2) * c * Math.sin(t)) / denominator;
+
+            Vecteur3d newVersLeHaut = new Vecteur3d(x, y, z);
+
+            camera.setPosition(GetPosition(a, b, c, t));
+            camera.setOrientationRegard(GetOrientation(a, b, c, t));
             camera.setOrientationVersLeHaut(newVersLeHaut);
             System.out.println(camera);
         }
@@ -365,7 +382,7 @@ public class Trajectoire
         clotureJSON();
     }
 
-    private static void question4(int n, int largeurImage, int hauteurImage, double[] abc)
+    private static void question4(int n, int largeurImage, int hauteurImage, double a, double b, double c)
     {
         initJSON();
 
@@ -383,9 +400,9 @@ public class Trajectoire
             double t = (2*3.1416*i)/(n-1); // 0.0 <= t <= 1.0 (croissant)
 
             //vecteur normal principal
-            double xDerived2 = -abc[0]*Math.cos(t);
-            double yDerived2 = -abc[1]*Math.sin(t);
-            double zDerived2 = -abc[2]*Math.cos(t);
+            double xDerived2 = -a*Math.cos(t);
+            double yDerived2 = -b*Math.sin(t);
+            double zDerived2 = -c*Math.cos(t);
             double norm = new Vecteur3d(xDerived2, yDerived2, zDerived2).norme();
             Vecteur3d normalPrincipal = new Vecteur3d(xDerived2/norm, yDerived2/norm, zDerived2/norm);
 
@@ -395,13 +412,13 @@ public class Trajectoire
             // T.I. -> solve(crossP([-a*cos(t) -b*sin(t) -c*cos(t)], []) = [0 z -y], {y, z})
             // => (x, y, z) = [0 c*cos(t) -b*sin(t)]
             double xVersLeHaut = 0;
-            double yVersLeHaut = abc[2]*Math.cos(t);
-            double zVersLeHaut = -abc[1]*Math.sin(t);
+            double yVersLeHaut = c*Math.cos(t);
+            double zVersLeHaut = -b*Math.sin(t);
 
             Vecteur3d newVersLeHaut = new Vecteur3d(xVersLeHaut, yVersLeHaut, zVersLeHaut);
 
-            camera.setPosition(GetPosition(abc, t));
-            camera.setOrientationRegard(GetOrientation(abc, t));
+            camera.setPosition(GetPosition(a, b, c, t));
+            camera.setOrientationRegard(GetOrientation(a, b, c, t));
             camera.setOrientationVersLeHaut(newVersLeHaut);
             System.out.println(camera);
         }
@@ -422,7 +439,7 @@ public class Trajectoire
             //question0(900, 1600, 900);
             //question1(900, 1600, 900, abc);
             //question2(900, 1600, 900, abc);
-            question3(160, 300, 200, abc);
+            question3(160, 300, 200, abc[0], abc[1], abc[2]);
             //question4(160, 300, 200, abc);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
