@@ -306,14 +306,17 @@ public class Trajectoire
         {
             double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
 
+            //position
             double x = abc[0]*(1+Math.cos(t))+1;
             double y = abc[1]*(Math.sin(t));
             double z = abc[2]*(1+Math.cos(t));
 
+            //orientation
             double xDerived = -abc[0]*Math.sin(t);
             double yDerived = abc[1]*Math.cos(t);
             double zDerived = -abc[2]*Math.sin(t);
 
+            //verslehaut
             double xVersLeHaut = 0;
             double yVersLeHaut = abc[2]*Math.sin(t);
             double zVersLeHaut = abc[1]*Math.cos(t);
@@ -351,14 +354,66 @@ public class Trajectoire
         {
             double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
 
+            //position
             double x = abc[0]*(1+Math.cos(t))+1;
             double y = abc[1]*(Math.sin(t));
             double z = abc[2]*(1+Math.cos(t));
 
+            //orientation
             double xDerived = -abc[0]*Math.sin(t);
             double yDerived = abc[1]*Math.cos(t);
             double zDerived = -abc[2]*Math.sin(t);
 
+            //verslehaut
+            double xDerived2 = -abc[0]*Math.cos(t);
+            double yDerived2 = -abc[1]*Math.sin(t);
+            double zDerived2 = -abc[2]*Math.cos(t);
+            var norm = new Vecteur3d(xDerived2, yDerived2, zDerived2).norme();
+
+            Vecteur3d position = new Vecteur3d(x, y, z);
+            Vecteur3d newOrientation = new Vecteur3d(xDerived,yDerived,zDerived);
+            Vecteur3d newVersLeHaut = new Vecteur3d(xDerived2/norm, yDerived2/norm, zDerived2/norm);
+
+            camera.setPosition(position);
+            camera.setOrientationRegard(newOrientation);
+            camera.setOrientationVersLeHaut(newVersLeHaut);
+            System.out.println(camera);
+        }
+
+        clotureJSON();
+    }
+
+    private static void question4(int n, int largeurImage, int hauteurImage)
+    {
+        initJSON();
+
+        Camera camera = new Camera(
+                new Vecteur3d(1, 0, 0),
+                new Vecteur3d(-1, 0, 0),
+                new Vecteur3d(0, 0, 1),
+                DISTANCE_OEIL_ECRAN,
+                largeurImage,
+                hauteurImage
+        );
+
+        double[] abc = {15.0, 5.0, 3.0};
+        int nbPasParPhase = n/3;
+
+        for (int i=0; i<nbPasParPhase; ++i)
+        {
+            double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
+
+            //position
+            double x = abc[0]*(1+Math.cos(t))+1;
+            double y = abc[1]*(Math.sin(t));
+            double z = abc[2]*(1+Math.cos(t));
+
+            //orientation
+            double xDerived = -abc[0]*Math.sin(t);
+            double yDerived = abc[1]*Math.cos(t);
+            double zDerived = -abc[2]*Math.sin(t);
+
+            //verslehaut
             double xDerived2 = -abc[0]*Math.cos(t);
             double yDerived2 = -abc[1]*Math.sin(t);
             double zDerived2 = -abc[2]*Math.cos(t);
@@ -385,9 +440,9 @@ public class Trajectoire
             // Assign o to output stream
             System.setOut(o);
 
-            question0(160, 300, 200);
-            question1(160, 300, 200);
-            question2(160, 300, 200);
+            //question0(160, 300, 200);
+            //question1(160, 300, 200);
+            //question2(160, 300, 200);
             question3(160, 300, 200);
             //question4(160, 300, 200);
         } catch (FileNotFoundException e) {
