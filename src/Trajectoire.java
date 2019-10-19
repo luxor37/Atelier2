@@ -317,6 +317,9 @@ public class Trajectoire
             double zDerived = -abc[2]*Math.sin(t);
 
             //verslehaut
+            // Formule des instruction
+            // T.I. -> solve(crossP([-a*sin(t) b*cos(t) -c*sin(t)], []) = [0 z -y], {y, z})
+            // => (x, y, z)=[0 c*sin(t) b*cos(t)]
             double xVersLeHaut = 0;
             double yVersLeHaut = abc[2]*Math.sin(t);
             double zVersLeHaut = abc[1]*Math.cos(t);
@@ -413,15 +416,25 @@ public class Trajectoire
             double yDerived = abc[1]*Math.cos(t);
             double zDerived = -abc[2]*Math.sin(t);
 
-            //verslehaut
+            //vecteur normal principal
             double xDerived2 = -abc[0]*Math.cos(t);
             double yDerived2 = -abc[1]*Math.sin(t);
             double zDerived2 = -abc[2]*Math.cos(t);
             var norm = new Vecteur3d(xDerived2, yDerived2, zDerived2).norme();
+            Vecteur3d normalPrincipal = new Vecteur3d(xDerived2/norm, yDerived2/norm, zDerived2/norm);
+
+            //verslehaut
+            // (calculer vec. perpenticulaire au vecteur normal
+            // principal en utilisant la formule de la question 2)
+            // T.I. -> solve(crossP([-a*cos(t) -b*sin(t) -c*cos(t)], []) = [0 z -y], {y, z})
+            // => (x, y, z) = [0 c*cos(t) -b*sin(t)]
+            double xVersLeHaut = 0;
+            double yVersLeHaut = abc[2]*Math.cos(t);
+            double zVersLeHaut = -abc[1]*Math.sin(t);
 
             Vecteur3d position = new Vecteur3d(x, y, z);
             Vecteur3d newOrientation = new Vecteur3d(xDerived,yDerived,zDerived);
-            Vecteur3d newVersLeHaut = new Vecteur3d(xDerived2/norm, yDerived2/norm, zDerived2/norm);
+            Vecteur3d newVersLeHaut = new Vecteur3d(xVersLeHaut, yVersLeHaut, zVersLeHaut);
 
             camera.setPosition(position);
             camera.setOrientationRegard(newOrientation);
@@ -443,8 +456,8 @@ public class Trajectoire
             //question0(160, 300, 200);
             //question1(160, 300, 200);
             //question2(160, 300, 200);
-            question3(160, 300, 200);
-            //question4(160, 300, 200);
+            //question3(160, 300, 200);
+            question4(160, 300, 200);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
