@@ -173,10 +173,18 @@ public class Trajectoire
         System.out.println("]\n}");
     }
 
-    private static Vecteur3d GetPosition(double[] abc, int t){
+    private static Vecteur3d GetPosition(double[] abc, double t){
         double x = abc[0]*(1+Math.cos(t))+1;
         double y = abc[1]*(Math.sin(t));
         double z = abc[2]*(1+Math.cos(t));
+
+        return new Vecteur3d(x, y, z);
+    }
+
+    private static Vecteur3d GetOrientation(double[] abc, double t){
+        double x = -abc[0]*Math.sin(t);
+        double y = abc[1]*Math.cos(t);
+        double z = -abc[2]*Math.sin(t);
 
         return new Vecteur3d(x, y, z);
     }
@@ -260,7 +268,7 @@ public class Trajectoire
         clotureJSON();
     }
 
-    private static void question1(int n, int largeurImage, int hauteurImage)
+    private static void question1(int n, int largeurImage, int hauteurImage, double[] abc)
     {
         initJSON();
 
@@ -273,23 +281,19 @@ public class Trajectoire
                 hauteurImage
         );
 
-        double[] abc = {15.0, 5.0, 3.0};
         int nbPasParPhase = n/3;
-
         for (int i=0; i<nbPasParPhase; ++i)
         {
             double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
 
-
-
-            camera.setPosition(GetPosition(abc, i));
+            camera.setPosition(GetPosition(abc, t));
             System.out.println(camera);
         }
 
         clotureJSON();
     }
 
-    private static void question2(int n, int largeurImage, int hauteurImage)
+    private static void question2(int n, int largeurImage, int hauteurImage, double[] abc)
     {
         initJSON();
 
@@ -302,17 +306,10 @@ public class Trajectoire
                 hauteurImage
         );
 
-        double[] abc = {15.0, 5.0, 3.0};
         int nbPasParPhase = n/3;
-
         for (int i=0; i<nbPasParPhase; ++i)
         {
             double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
-
-            //orientation
-            double xDerived = -abc[0]*Math.sin(t);
-            double yDerived = abc[1]*Math.cos(t);
-            double zDerived = -abc[2]*Math.sin(t);
 
             //verslehaut
             // Formule des instruction
@@ -322,11 +319,10 @@ public class Trajectoire
             double yVersLeHaut = abc[2]*Math.sin(t);
             double zVersLeHaut = abc[1]*Math.cos(t);
 
-            Vecteur3d newOrientation = new Vecteur3d(xDerived,yDerived,zDerived);
             Vecteur3d newVersLeHaut = new Vecteur3d(xVersLeHaut, yVersLeHaut, zVersLeHaut);
 
-            camera.setPosition(GetPosition(abc, i));
-            camera.setOrientationRegard(newOrientation);
+            camera.setPosition(GetPosition(abc, t));
+            camera.setOrientationRegard(GetOrientation(abc, t));
             camera.setOrientationVersLeHaut(newVersLeHaut);
             System.out.println(camera);
         }
@@ -334,7 +330,7 @@ public class Trajectoire
         clotureJSON();
     }
 
-    private static void question3(int n, int largeurImage, int hauteurImage)
+    private static void question3(int n, int largeurImage, int hauteurImage, double[] abc)
     {
         initJSON();
 
@@ -347,17 +343,10 @@ public class Trajectoire
                 hauteurImage
         );
 
-        double[] abc = {15.0, 5.0, 3.0};
         int nbPasParPhase = n/3;
-
         for (int i=0; i<nbPasParPhase; ++i)
         {
             double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
-
-            //orientation
-            double xDerived = -abc[0]*Math.sin(t);
-            double yDerived = abc[1]*Math.cos(t);
-            double zDerived = -abc[2]*Math.sin(t);
 
             //verslehaut
             double xDerived2 = -abc[0]*Math.cos(t);
@@ -365,11 +354,10 @@ public class Trajectoire
             double zDerived2 = -abc[2]*Math.cos(t);
             var norm = new Vecteur3d(xDerived2, yDerived2, zDerived2).norme();
 
-            Vecteur3d newOrientation = new Vecteur3d(xDerived,yDerived,zDerived);
             Vecteur3d newVersLeHaut = new Vecteur3d(xDerived2/norm, yDerived2/norm, zDerived2/norm);
 
-            camera.setPosition(GetPosition(abc, i));
-            camera.setOrientationRegard(newOrientation);
+            camera.setPosition(GetPosition(abc, t));
+            camera.setOrientationRegard(GetOrientation(abc, t));
             camera.setOrientationVersLeHaut(newVersLeHaut);
             System.out.println(camera);
         }
@@ -377,7 +365,7 @@ public class Trajectoire
         clotureJSON();
     }
 
-    private static void question4(int n, int largeurImage, int hauteurImage)
+    private static void question4(int n, int largeurImage, int hauteurImage, double[] abc)
     {
         initJSON();
 
@@ -390,17 +378,10 @@ public class Trajectoire
                 hauteurImage
         );
 
-        double[] abc = {15.0, 5.0, 3.0};
         int nbPasParPhase = n/3;
-
         for (int i=0; i<nbPasParPhase; ++i)
         {
             double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
-
-            //orientation
-            double xDerived = -abc[0]*Math.sin(t);
-            double yDerived = abc[1]*Math.cos(t);
-            double zDerived = -abc[2]*Math.sin(t);
 
             //vecteur normal principal
             double xDerived2 = -abc[0]*Math.cos(t);
@@ -418,11 +399,10 @@ public class Trajectoire
             double yVersLeHaut = abc[2]*Math.cos(t);
             double zVersLeHaut = -abc[1]*Math.sin(t);
 
-            Vecteur3d newOrientation = new Vecteur3d(xDerived,yDerived,zDerived);
             Vecteur3d newVersLeHaut = new Vecteur3d(xVersLeHaut, yVersLeHaut, zVersLeHaut);
 
-            camera.setPosition(GetPosition(abc, i));
-            camera.setOrientationRegard(newOrientation);
+            camera.setPosition(GetPosition(abc, t));
+            camera.setOrientationRegard(GetOrientation(abc, t));
             camera.setOrientationVersLeHaut(newVersLeHaut);
             System.out.println(camera);
         }
@@ -437,12 +417,14 @@ public class Trajectoire
             // Assign o to output stream
             System.setOut(o);
 
+            double[] abc = {15.0, 5.0, 3.0};
+
             //(160, 400, 340) -> low settings | (???fps, 1600, 900) -> high settings
             //question0(900, 1600, 900);
-            //question1(900, 1600, 900);
-            //question2(900, 1600, 900);
-            question3(160, 300, 200);
-            //question4(160, 300, 200);
+            //question1(900, 1600, 900, abc);
+            //question2(900, 1600, 900, abc);
+            question3(160, 300, 200, abc);
+            //question4(160, 300, 200, abc);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
