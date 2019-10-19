@@ -378,10 +378,9 @@ public class Trajectoire
                 hauteurImage
         );
 
-        int nbPasParPhase = n/3;
-        for (int i=0; i<nbPasParPhase; ++i)
+        for (int i=0; i<n; ++i)
         {
-            double t = (2*3.1416*i)/(nbPasParPhase-1); // 0.0 <= t <= 1.0 (croissant)
+            double t = (2*3.1416*i)/(n-1); // 0.0 <= t <= 1.0 (croissant)
 
             //vecteur normal principal
             double xDerived2 = -abc[0]*Math.cos(t);
