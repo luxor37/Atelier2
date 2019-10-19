@@ -350,8 +350,8 @@ public class Trajectoire
 
             //verslehaut
             double xTangentDerived = (-abc[0]*Math.cos(t));
-            double zTangentDerived = (-abc[2]*Math.cos(t));
             double yTangentDerived = (-abc[1]*Math.sin(t));
+            double zTangentDerived = (-abc[2]*Math.cos(t));
             double norm = new Vecteur3d(xTangentDerived, yTangentDerived, zTangentDerived).norme();
 
             Vecteur3d newVersLeHaut = new Vecteur3d(xTangentDerived/norm, yTangentDerived/norm, zTangentDerived/norm);
