@@ -1,16 +1,11 @@
-/** 
- * Ce programme génère un fichier JSON formée d'une liste de cameras.
- *
- * Chacune de ces caméras produit une image à partir d'une scène 3D. Les images
- * sont ensuite assemblées en un film.
- */
+// * Ce programme génère un fichier JSON formée d'une liste de cameras.
+// *
+// * Chacune de ces caméras produit une image à partir d'une scène 3D. Les images
+// * sont ensuite assemblées en un film.
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
 
 
 public class Trajectoire
@@ -31,20 +26,20 @@ public class Trajectoire
         /**
          * Constructeur à partir des trois composantes du vecteur.
          */
-        public Vecteur3d(double x, double y, double z) {
+        Vecteur3d(double x, double y, double z) {
             this.x = x;
             this.y = y;
             this.z = z;
         }
 
-        /**
-         * Constructeur à partir d'un autre vecteur (copie)
-         */
-        public Vecteur3d(Vecteur3d v) {
-            this.x = v.x;
-            this.y = v.y;
-            this.z = v.z;
-        }
+//        /**
+//         * Constructeur à partir d'un autre vecteur (copie)
+//         */
+//        public Vecteur3d(Vecteur3d v) {
+//            this.x = v.x;
+//            this.y = v.y;
+//            this.z = v.z;
+//        }
 
         /**
          * Addition de vecteurs.
@@ -52,19 +47,19 @@ public class Trajectoire
          * @param v  un vecteur
          * @return  vecteur somme
          */
-        public Vecteur3d plus(Vecteur3d v) {
+        Vecteur3d plus(Vecteur3d v) {
             return new Vecteur3d(this.x + v.x, this.y + v.y, this.z + v.z);
         }
 
-        /**
-         * Soustraction de vecteurs
-         *
-         * @param v  un vecteur
-         * @return  le vecteur this - v
-         */
-        public Vecteur3d moins(Vecteur3d v) {
-            return new Vecteur3d(this.x - v.x, this.y - v.y, this.z - v.z);
-        }
+//        /**
+//         * Soustraction de vecteurs
+//         *
+//         * @param v  un vecteur
+//         * @return  le vecteur this - v
+//         */
+//        public Vecteur3d moins(Vecteur3d v) {
+//            return new Vecteur3d(this.x - v.x, this.y - v.y, this.z - v.z);
+//        }
 
         /**
          * Multiplication par un scalaire.
@@ -72,7 +67,7 @@ public class Trajectoire
          * @param d  un scalaire
          * @return  le vecteur d * this.
          */
-        public Vecteur3d multiplie(double d) {
+        Vecteur3d multiplie(double d) {
             return new Vecteur3d(d*this.x, d*this.y, d*this.z);
         }
 
@@ -86,7 +81,7 @@ public class Trajectoire
          *
          * @return  le carré de la norme de this
          */
-        public double normeCarree() {
+        double normeCarree() {
             return this.x*this.x + this.y*this.y + this.z*this.z;
         }
 
@@ -95,7 +90,7 @@ public class Trajectoire
          *
          * return  la norme du vecteur
          */
-        public double norme() {
+        double norme() {
             return Math.sqrt(this.normeCarree());
         }
 
@@ -120,12 +115,12 @@ public class Trajectoire
         private int hauteurImage;
 
 
-        public Camera(Vecteur3d position,
-                Vecteur3d orientationRegard,
-                Vecteur3d orientationVersLeHaut,
-                double distanceOeilEcran,
-                int largeurImage,
-                int hauteurImage) {
+        Camera(Vecteur3d position,
+               Vecteur3d orientationRegard,
+               Vecteur3d orientationVersLeHaut,
+               double distanceOeilEcran,
+               int largeurImage,
+               int hauteurImage) {
             this.position = position;
             this.orientationRegard = orientationRegard;
             this.orientationVersLeHaut = orientationVersLeHaut;
@@ -134,17 +129,17 @@ public class Trajectoire
             this.hauteurImage = hauteurImage;
         }
 
-      public void setPosition(Vecteur3d position)
+      void setPosition(Vecteur3d position)
         {
           this.position = position;
         }
 
-      public void setOrientationRegard(Vecteur3d orientationRegard)
+      void setOrientationRegard(Vecteur3d orientationRegard)
         {
           this.orientationRegard = orientationRegard;
         }
 
-      public void setOrientationVersLeHaut(Vecteur3d orientationVersLeHaut)
+      void setOrientationVersLeHaut(Vecteur3d orientationVersLeHaut)
         {
           this.orientationVersLeHaut = orientationVersLeHaut;
         }
@@ -211,10 +206,9 @@ public class Trajectoire
         // Phase 1 : la caméra passe de (-10,0,0.75) à (0,0,0)
         Vecteur3d depart      = new Vecteur3d(-10, 0, 0.75);
         Vecteur3d destination = new Vecteur3d(  0, 0, 0);
-        int nbPasParPhase = n;
-        for (int i=0; i<nbPasParPhase; ++i) 
+        for (int i = 0; i< n; ++i)
         {
-            double t = (i*1.0) / (nbPasParPhase - 1.0); // 0.0 <= t <= 1.0 (croissant)
+            double t = (i*1.0) / (n - 1.0); // 0.0 <= t <= 1.0 (croissant)
             // Calcul de la position via une interpolation linéaire
             // calcule effectué : position = (1-t)*depart + t*destination
             Vecteur3d position = depart.multiplie(1.0-t).plus(destination.multiplie(t));
@@ -224,9 +218,9 @@ public class Trajectoire
 
         // Phase 2 : la caméra fait un demi-tour sur elle même dans le sens
         // anti-horaire
-        for (int i=0; i<nbPasParPhase; ++i) 
+        for (int i = 0; i< n; ++i)
         {
-            double t = (1.0 * i) / (nbPasParPhase - 1.0); // 0.0 <= t <= 1.0 (croissant)
+            double t = (1.0 * i) / (n - 1.0); // 0.0 <= t <= 1.0 (croissant)
             double angle = Math.PI * t;
             Vecteur3d orientationRegard = new Vecteur3d(Math.cos(angle), Math.sin(angle), 0.0);
             camera.setOrientationRegard(orientationRegard);
@@ -234,9 +228,9 @@ public class Trajectoire
         }
 
         // Phase 3 : la caméra fait un quart de tour de haut en bas
-        for (int i=0; i<nbPasParPhase; ++i) 
+        for (int i = 0; i< n; ++i)
         {
-            double t = (1.0 * i) / (nbPasParPhase - 1.0); // 0.0 <= t <= 1.0 (croissant)
+            double t = (1.0 * i) / (n - 1.0); // 0.0 <= t <= 1.0 (croissant)
             double angle = Math.PI*(1.0-t)/2.0;
             Vecteur3d orientationVersLeHaut = new Vecteur3d(0, Math.cos(angle), Math.sin(angle));
             camera.setOrientationVersLeHaut(orientationVersLeHaut);
@@ -246,9 +240,9 @@ public class Trajectoire
         // Phase 4 : la caméra se déplace en marche arrière de (0,0,0) à (10,0,0)
         depart = new Vecteur3d(0,0,0);
         destination = new Vecteur3d(10,0,0.75);
-        for (int i=0; i<nbPasParPhase; ++i) 
+        for (int i = 0; i< n; ++i)
         {
-            double t = (1.0 * i) / (nbPasParPhase - 1.0); // 0.0 <= t <= 1. (croissant)
+            double t = (1.0 * i) / (n - 1.0); // 0.0 <= t <= 1. (croissant)
             // Calcul de la position via une interpolation linéaire
             // calcule effectué : position = (1-t)*depart + t*destination
             Vecteur3d position = depart.multiplie(1.0-t).plus(destination.multiplie(t));
@@ -391,9 +385,9 @@ public class Trajectoire
             // Assign o to output stream
             System.setOut(o);
 
-            //question0(160, 300, 200);
-            //question1(160, 300, 200);
-            //question2(160, 300, 200);
+            question0(160, 300, 200);
+            question1(160, 300, 200);
+            question2(160, 300, 200);
             question3(160, 300, 200);
             //question4(160, 300, 200);
         } catch (FileNotFoundException e) {
