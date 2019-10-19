@@ -325,11 +325,11 @@ public class Trajectoire
             double zVersLeHaut = abc[1]*Math.cos(t);
 
             Vecteur3d position = new Vecteur3d(x, y, z);
-            Vecteur3d newRegard = new Vecteur3d(xDerived,yDerived,zDerived);
+            Vecteur3d newOrientation = new Vecteur3d(xDerived,yDerived,zDerived);
             Vecteur3d newVersLeHaut = new Vecteur3d(xVersLeHaut, yVersLeHaut, zVersLeHaut);
 
             camera.setPosition(position);
-            camera.setOrientationRegard(newRegard);
+            camera.setOrientationRegard(newOrientation);
             camera.setOrientationVersLeHaut(newVersLeHaut);
             System.out.println(camera);
         }
@@ -371,11 +371,11 @@ public class Trajectoire
             var norm = new Vecteur3d(xDerived2, yDerived2, zDerived2).norme();
 
             Vecteur3d position = new Vecteur3d(x, y, z);
-            Vecteur3d newRegard = new Vecteur3d(xDerived,yDerived,zDerived);
+            Vecteur3d newOrientation = new Vecteur3d(xDerived,yDerived,zDerived);
             Vecteur3d newVersLeHaut = new Vecteur3d(xDerived2/norm, yDerived2/norm, zDerived2/norm);
 
             camera.setPosition(position);
-            camera.setOrientationRegard(newRegard);
+            camera.setOrientationRegard(newOrientation);
             camera.setOrientationVersLeHaut(newVersLeHaut);
             System.out.println(camera);
         }
