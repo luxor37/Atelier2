@@ -4,7 +4,9 @@
 # Log file
 *.log
 
+#Custom ignore
 cameras.json
+.idea
 
 # BlueJ files
 *.ctxt
