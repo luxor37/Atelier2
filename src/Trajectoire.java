@@ -449,19 +449,17 @@ public class Trajectoire
         try {
             // Creating a File object that represents the disk file.
             PrintStream o = new PrintStream(new File("test/cameras.json"));
-
             // Assign o to output stream
             System.setOut(o);
 
-            //question0(160, 300, 200);
-            //question1(160, 300, 200);
-            //question2(160, 300, 200);
-            //question3(160, 300, 200);
-            question4(160, 300, 200);
+            //(160, 400, 340) -> low settings | (???fps, 1600, 900) -> high settings
+            //question0(900, 1600, 900);
+            //question1(900, 1600, 900);
+            //question2(900, 1600, 900);
+            question3(160, 300, 200);
+            //question4(160, 300, 200);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
-
-
 }
