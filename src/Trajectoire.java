@@ -199,6 +199,22 @@ public class Trajectoire
         return new Vecteur3d(x, y, z);
     }
 
+    private static Vecteur3d GetNormalePrincipale(double a, double b, double c, double t){
+
+        //TI (d/dt)(unitV([-a*sin(t) b*cos(t) -c*sin(t)]))
+
+        double denominator = ((Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2))
+                * (Math.pow(Math.cos(t), 2) - Math.pow(a, 2) - Math.pow(c, 2))) *
+                Math.sqrt(-(Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2)) + Math.pow(Math.cos(t), 2) +
+                        Math.pow(a, 2) + Math.pow(c, 2));
+
+        double x = (a * Math.pow(b, 2) * Math.cos(t)) / denominator;
+        double y = ((Math.pow(a, 2) + Math.pow(c, 2)) * b * Math.sin(t)) / denominator;
+        double z = (Math.pow(b, 2) * c * Math.cos(t)) / denominator;
+
+        return new Vecteur3d(x, y, z);
+    }
+
     /**
      * Réalise une trajectoire toute simple, en 4 phases
      *
@@ -355,24 +371,9 @@ public class Trajectoire
         {
             double t = (2*3.1416*i)/(n-1); // 0.0 <= t <= 1.0 (croissant)
 
-            //verslehaut
-
-            //TI (d/dt)(unitV([-a*sin(t) b*cos(t) -c*sin(t)]))
-
-            double denominator = ((Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2))
-                    * (Math.pow(Math.cos(t), 2) - Math.pow(a, 2) - Math.pow(c, 2))) *
-                    Math.sqrt(-(Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2)) + Math.pow(Math.cos(t), 2) +
-                            Math.pow(a, 2) + Math.pow(c, 2));
-
-            double x = (a * Math.pow(b, 2) * Math.cos(t)) / denominator;
-            double y = ((Math.pow(a, 2) + Math.pow(c, 2)) * b * Math.sin(t)) / denominator;
-            double z = (Math.pow(b, 2) * c * Math.cos(t)) / denominator;
-
-            Vecteur3d newVersLeHaut = new Vecteur3d(x, y, z);
-
             camera.setPosition(GetPosition(a, b, c, t));
             camera.setOrientationRegard(GetOrientation(a, b, c, t));
-            camera.setOrientationVersLeHaut(newVersLeHaut);
+            camera.setOrientationVersLeHaut(GetNormalePrincipale(a, b, c, t));
             System.out.println(camera);
         }
 
@@ -406,13 +407,19 @@ public class Trajectoire
             //verslehaut
             // (calculer vec. perpenticulaire au vecteur normal
             // principal en utilisant la formule de la question 2)
-            // T.I. -> solve(crossP([-a*cos(t) -b*sin(t) -c*cos(t)], []) = [0 z -y], {y, z})
+            // T.I. -> solve(crossP([-a*cos(t) -b*sin(t) -c*cos(t)], [1, 0, 0]) = [0 z -y], {y, z})
             // => (x, y, z) = [0 c*cos(t) -b*sin(t)]
-            double xVersLeHaut = 0;
-            double yVersLeHaut = c*Math.cos(t);
-            double zVersLeHaut = -b*Math.sin(t);
 
-            Vecteur3d newVersLeHaut = new Vecteur3d(xVersLeHaut, yVersLeHaut, zVersLeHaut);
+            double denominator = ((Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2))
+                    * (Math.pow(Math.cos(t), 2) - Math.pow(a, 2) - Math.pow(c, 2))) *
+                    Math.sqrt(-(Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2)) + Math.pow(Math.cos(t), 2) +
+                            Math.pow(a, 2) + Math.pow(c, 2));
+
+            double x = 0;
+            double z = -(((Math.pow(a, 2)+Math.pow(c, 2)) * b * Math.sin(t)) / denominator);
+            double y = (Math.pow(b, 2)* c *Math.cos(t)) / denominator;
+
+            Vecteur3d newVersLeHaut = new Vecteur3d(x, y, z);
 
             camera.setPosition(GetPosition(a, b, c, t));
             camera.setOrientationRegard(GetOrientation(a, b, c, t));
@@ -436,8 +443,8 @@ public class Trajectoire
             //question0(900, 1600, 900);
             //question1(900, 1600, 900, abc);
             //question2(900, 1600, 900, abc);
-            question3(160, 300, 200, abc[0], abc[1], abc[2]);
-            //question4(160, 300, 200, abc);
+            //question3(160, 300, 200, abc[0], abc[1], abc[2]);
+            question4(160, 300, 200, abc[0], abc[1], abc[2]);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
