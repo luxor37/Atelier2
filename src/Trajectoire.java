@@ -103,6 +103,12 @@ public class Trajectoire
             return this.multiplie(1.0 / this.norme());
         }
 
+        public Vecteur3d prodVect(Vecteur3d v) {
+            return new Vecteur3d(this.y*v.z - this.z*v.y,
+                    this.z*v.x - this.x*v.z,
+                    this.x*v.y - this.y*v.x);
+        }
+
         public String toString() {
             return "(" + x + ", " + y + ", " + z + ")";
         }
@@ -405,21 +411,13 @@ public class Trajectoire
             Vecteur3d normalPrincipal = new Vecteur3d(xDerived2/norm, yDerived2/norm, zDerived2/norm);
 
             //verslehaut
-            // (calculer vec. perpenticulaire au vecteur normal
-            // principal en utilisant la formule de la question 2)
-            // T.I. -> solve(crossP([-a*cos(t) -b*sin(t) -c*cos(t)], [1, 0, 0]) = [0 z -y], {y, z})
-            // => (x, y, z) = [0 c*cos(t) -b*sin(t)]
 
-            double denominator = ((Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2))
-                    * (Math.pow(Math.cos(t), 2) - Math.pow(a, 2) - Math.pow(c, 2))) *
-                    Math.sqrt(-(Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2)) + Math.pow(Math.cos(t), 2) +
-                            Math.pow(a, 2) + Math.pow(c, 2));
+            Vecteur3d tangent = GetOrientation(a, b, c ,t);
+            Vecteur3d normalePrincipale = GetNormalePrincipale(a, b, c, t);
 
-            double x = 0;
-            double z = -(((Math.pow(a, 2)+Math.pow(c, 2)) * b * Math.sin(t)) / denominator);
-            double y = (Math.pow(b, 2)* c *Math.cos(t)) / denominator;
 
-            Vecteur3d newVersLeHaut = new Vecteur3d(x, y, z);
+
+            Vecteur3d newVersLeHaut = tangent.prodVect(normalePrincipale);
 
             camera.setPosition(GetPosition(a, b, c, t));
             camera.setOrientationRegard(GetOrientation(a, b, c, t));
