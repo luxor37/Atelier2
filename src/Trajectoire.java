@@ -438,11 +438,11 @@ public class Trajectoire
             double[] abc = {15.0, 5.0, 3.0};
 
             //(160, 400, 340) -> low settings | (1440, 1600, 900) -> high settings
-            //question0(900, 1600, 900);
-            //question1(900, 1600, 900, abc);
-            //question2(900, 1600, 900, abc);
-            //question3(160, 300, 200, abc[0], abc[1], abc[2]);
-            question4(160, 300, 200, abc[0], abc[1], abc[2]);
+            //question0(160, 1280, 720, abc[0], abc[1], abc[2]);
+            //question1(160, 1280, 720, abc[0], abc[1], abc[2]);
+            //question2(160, 1280, 720, abc[0], abc[1], abc[2]);
+            //question3(160, 1280, 720, abc[0], abc[1], abc[2]);
+            //question4(160, 1280, 720, abc[0], abc[1], abc[2]);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
